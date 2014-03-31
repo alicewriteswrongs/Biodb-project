@@ -27,7 +27,7 @@ CREATE TABLE minicircles (
     datasetid VARCHAR(25) NOT NULL,
     sequence TEXT(2000) NOT NULL,
     PRIMARY KEY (id),
-    FOREING KEY datasetid REFERENCES dataset(id)
+    FOREIGN KEY datasetid REFERENCES dataset(id)
 )
 ENGINE = INNODB;
 
@@ -52,7 +52,7 @@ CREATE TABLE smrna_maps (
     strandinfo VARCHAR(25) NOT NULL,
     quality VARCHAR(25) NOT NULL,
     PRIMARY KEY (smallrnaid,minicircid,startpos),
-    FOREIGN KEY (smallrnaid) REFERENCES smallrna(id),
+    FOREIGN KEY (smallrnaid REFERENCES smallrna(id),
     FOREIGN KEY (minicircid) REFERENCES minicircles(id)
 )
 ENGINE = INNODB;
