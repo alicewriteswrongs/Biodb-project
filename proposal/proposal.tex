@@ -28,7 +28,7 @@
 
 
 \begin{document}
-\lstset{language=R}
+\lstset{language=sql}
 
 \maketitle
 
@@ -178,6 +178,110 @@ generate a Multiple Sequence Alignment of these sequences on the fly (or precomp
 
 
 \end{section}
+
+\begin{section}{Three SQL Queries}
+
+    Here we present three sample SQL queries which could be used to answer a particular question about the data contained in our
+    database.
+
+    \begin{subsection}{Minicircle in largest cluster}
+        Here we'd like to find the minicircle that belongs in the largest cluster, and return the minicircle id, the sequence,
+        and the cluster number.
+
+        \begin{lstlisting}
+        SELECT mid, sequence, clusternum
+        FROM minicircles
+        GROUP BY clusternum
+        ORDER BY count(*) DESC
+        LIMIT 1;
+        \end{lstlisting}
+    \end{subsection}
+
+    \begin{subsection}{All minicircles containing `csb3'}
+        Now we'd like to find all of the minicircles which contain the CSB `csb3', and we'd like to return the minicircle id, the 
+        minicircle sequence, and the cluster number:
+
+        \begin{lstlisting}
+        SELECT m.mid, m.sequence, m.clusternum
+        FROM csb\_maps c NATURAL JOIN minicircle m
+        WHERE c.csbid = 'csb3';
+        \end{lstlisting}
+    \end{subsection}
+
+    \begin{subsection}{All smRNAs mapping to cluster 4 minicircles}
+        We want to find all the smRNAs which map to minicircles that are in cluster 4, and return the minicircle id, the smRNAid, 
+        and the smRNA sequence:
+
+        \begin{lstlisting}
+        SELECT m.mid, s.smid, s.sequence
+        FROM smrna\_maps s NATURAL JOIN minicircles m
+        WHERE m.clusternum = 4;
+        \end{lstlisting}
+
+    \end{subsection}
+\end{section}
+
+\begin{section}{External data processing}
+    \begin{itemize}
+        \item Clustalw2 will be used to perform multiple sequence alignment on a specified cluster number. Multiple sequence 
+            alignments are computed on the fly when the user specifies an input cluster number.
+        \item Alignment of smallRNA to minicircles was done using Bowtie2. This alignment is precomputed and stored in the 
+            database.
+        \item Cluster assignments to each minicircle was done using BLAST for each pairwise minicircle sequences, then clustered 
+            as connected components. The clustering is precomputed and cluster assignments are stored in the database.
+    \end{itemize}
+\end{section}
+
+\begin{section}{Links to Other databases}
+    The data for our database comes from the following datasets:
+
+    \begin{itemize}
+        \item Minicircles published from Hong/Simpson Paper: http://dna.kdna.ucla.edu/tbrucei/Default.htm
+        \item Curated list of T.brucei minicircles from Genbank. We have the fasta file containing all the sequences 
+            from Genbank available to download.
+        \item KISS database: reference link to another database that contains minicircles and guideRNA mappings: 
+            http://gmod.mbl.edu/kiss/
+    \end{itemize}
+
+    We will link back to the Genbank sequences we use.
+
+\end{section}
+
+\begin{section}{Graphical Output}
+    An overview of our plans for graphical output:
+
+    \begin{itemize}
+        \item Display multiple sequence alignments for minicircle reads belonging to a specified cluster (colorcoded by bases).
+        \item Display alignment of smallRNA that maps to a specified minicircle. We will show the minicircle sequence as a 
+            single track, then below the minicircle track, we will show the smallRNA sequences, aligned by the start and end 
+            positions of where the smallRNA maps to the given minicircle. 
+    \end{itemize}
+
+\end{section}
+            
+\begin{section}{Data Download}
+    We plan to offer the ability for users of our database to download data from it:
+
+    \begin{itemize}
+        \item After the user runnings a specific query to narrow down the list of minicircles of interest (ie. by CSB mapping or 
+            clusternumber), there will be an option to download the minicircles from the query in fasta format. We will also 
+            provide the option to download the smallRNA alignments that map to the minicircles of interest (alignment file in 
+            BED format, smallRNA sequences in fasta format). 
+        \item The user will be able to download the multiple sequence alignment file for a specified cluster (file in aln 
+            format, output from clustalw2)
+    \end{itemize}
+
+\end{section}
+
+
+
+    
+
+
+
+        
+            
+
 
 
 
