@@ -51,7 +51,7 @@ CREATE TABLE smrna_maps (
     endpos INT NOT NULL,
     strandinfo VARCHAR(25) NOT NULL,
     quality VARCHAR(25) NOT NULL,
-    PRIMARY KEY (smallrnaid,minicircid,startpos),
+    PRIMARY KEY (smallrnaid,minicircid),
     FOREIGN KEY (smallrnaid REFERENCES smallrna(smid),
     FOREIGN KEY (minicircid) REFERENCES minicircles(mid)
 )
