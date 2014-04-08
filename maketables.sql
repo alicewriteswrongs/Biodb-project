@@ -2,32 +2,31 @@
 
 -- I think we want to use VARCHAR for these short ones
 CREATE TABLE csb (
-    id VARCHAR(25) NOT NULL,
+    csbid VARCHAR(25) NOT NULL,
     sequence VARCHAR(500) NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (csbid)
 )
 ENGINE = INNODB;
 
 CREATE TABLE smallrna (
-    id VARCHAR(25) NOT NULL,
+    smid VARCHAR(25) NOT NULL,
     sequence TEXT(2000) NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (smid)
 )
 ENGINE = INNODB;
 
 CREATE TABLE dataset (
-    id VARCHAR(25) NOT NULL,
-    -- some info here
-    PRIMARY KEY (id)
+    did VARCHAR(25) NOT NULL,
+    PRIMARY KEY (did)
 )
 ENGINE = INNODB;
 
 CREATE TABLE minicircles (
-    id VARCHAR(25) NOT NULL,
+    mid VARCHAR(25) NOT NULL,
     datasetid VARCHAR(25) NOT NULL,
     sequence TEXT(2000) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY datasetid REFERENCES dataset(id)
+    PRIMARY KEY (mid),
+    FOREIGN KEY datasetid REFERENCES dataset(did)
 )
 ENGINE = INNODB;
 
@@ -39,8 +38,8 @@ CREATE TABLE csb_maps (
     strandinfo VARCHAR(25) NOT NULL,
     quality VARCHAR(25) NOT NULL,
     PRIMARY KEY (csbid,minicircid,startpos),
-    FOREIGN KEY (csbid) REFERENCES csb(id),
-    FOREIGN KEY (minicircid) REFERENCES minicircles(id)
+    FOREIGN KEY (csbid) REFERENCES csb(csbid),
+    FOREIGN KEY (minicircid) REFERENCES minicircles(mid)
 )
 ENGINE = INNODB;
 
@@ -52,8 +51,8 @@ CREATE TABLE smrna_maps (
     strandinfo VARCHAR(25) NOT NULL,
     quality VARCHAR(25) NOT NULL,
     PRIMARY KEY (smallrnaid,minicircid,startpos),
-    FOREIGN KEY (smallrnaid REFERENCES smallrna(id),
-    FOREIGN KEY (minicircid) REFERENCES minicircles(id)
+    FOREIGN KEY (smallrnaid REFERENCES smallrna(smid),
+    FOREIGN KEY (minicircid) REFERENCES minicircles(mid)
 )
 ENGINE = INNODB;
 
