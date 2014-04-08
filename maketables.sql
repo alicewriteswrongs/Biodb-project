@@ -37,27 +37,27 @@ ENGINE = INNODB;
 
 CREATE TABLE csb_maps (
     csbid VARCHAR(25) NOT NULL,
-    minicircid VARCHAR(25) NOT NULL,
+    mid VARCHAR(25) NOT NULL,
     startpos INT NOT NULL,
     endpos INT NOT NULL,
     strandinfo VARCHAR(25) NOT NULL,
     quality VARCHAR(25) NOT NULL,
-    PRIMARY KEY (csbid,minicircid,startpos),
+    PRIMARY KEY (csbid,mid,startpos),
     FOREIGN KEY (csbid) REFERENCES csb(csbid),
-    FOREIGN KEY (minicircid) REFERENCES minicircles(mid)
+    FOREIGN KEY (mid) REFERENCES minicircles(mid)
 )
 ENGINE = INNODB;
 
 CREATE TABLE smrna_maps (
-    smallrnaid VARCHAR(25) NOT NULL,
-    minicircid VARCHAR(25) NOT NULL,
+    smid VARCHAR(25) NOT NULL,
+    mid VARCHAR(25) NOT NULL,
     startpos INT NOT NULL,
     endpos INT NOT NULL,
     strandinfo VARCHAR(25) NOT NULL,
     quality VARCHAR(25) NOT NULL,
-    PRIMARY KEY (smallrnaid,minicircid),
-    FOREIGN KEY (smallrnaid REFERENCES smallrna(smid),
-    FOREIGN KEY (minicircid) REFERENCES minicircles(mid)
+    PRIMARY KEY (smid, mid),
+    FOREIGN KEY (smid) REFERENCES smallrna(smid),
+    FOREIGN KEY (mid) REFERENCES minicircles(mid)
 )
 ENGINE = INNODB;
 
