@@ -10,7 +10,7 @@ ENGINE = INNODB;
 
 CREATE TABLE smallrna (
     smid VARCHAR(25) NOT NULL,
-    sequence TEXT(2000) NOT NULL,
+    sequence TEXT(100) NOT NULL,
     PRIMARY KEY (smid)
 )
 ENGINE = INNODB;
