@@ -2,25 +2,21 @@
 
 -- I think we want to use VARCHAR for these short ones
 CREATE TABLE csb (
-    csbid VARCHAR(25) NOT NULL AUTO INC,
+    csbid VARCHAR(45) NOT NULL,
     sequence VARCHAR(500) NOT NULL,
-    name VARCHAR(45) NOT NULL,
     PRIMARY KEY (csbid)
 )
 ENGINE = INNODB;
 
--- name is the header for a sequence in the fasta file
 
 CREATE TABLE smallrna (
-    smid VARCHAR(25) NOT NULL AUTO INC,
+    smid VARCHAR(45) NOT NULL,
     sequence TEXT(100) NOT NULL,
-    name VARCHAR(45) NOT NULL,
     copynum INT,
     PRIMARY KEY (smid)
 )
 ENGINE = INNODB;
 
--- again, smid is autoinc, name is the header in the fasta
 
 
 
