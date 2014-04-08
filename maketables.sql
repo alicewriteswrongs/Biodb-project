@@ -25,6 +25,7 @@ CREATE TABLE minicircles (
     mid VARCHAR(25) NOT NULL,
     datasetid VARCHAR(25) NOT NULL,
     sequence TEXT(2000) NOT NULL,
+    clusternum INT,
     PRIMARY KEY (mid),
     FOREIGN KEY datasetid REFERENCES dataset(did)
 )
