@@ -70,7 +70,12 @@ Our database will contain data from the following:
 
 \begin{enumerate}
 \item PacBio Minicircle Sequencing Dataset - this dataset contains 39,939 filtered minicircle DNA sequences isolated from the mitochondria of Trypanosoma brucei. These reads are on average around 1kb long. For each sequence, we will have a unique sequence identifier, the actual DNA sequence, and a cluster assignment. The cluster assignment has already been precomputed using Connected Component Clustering, based on sequence similarity. We are currently in the process of applying other clustering methods, so we are interested in adding additional cluster assignments later on.
-\item Illumina smallRNA-seq dataset - this contains 3,937,040 unique processed smallRNA reads which are putative guideRNAs. Each read has a duplication number (how many duplicate sequences of itself is found in the original sequence file), an RNA sequence, and alignment information: where each sRNA read aligned to each of the minicircle sequences (some align to more than 1 or no minicircle sequences, and can align at more than two different positions within the same minicircle sequence). This is a very big file, so we may just store alignment information (processed from BED format) into the database and not each individual smallRNA sequence.
+\item Illumina smallRNA-seq dataset - this contains 3,937,040 unique processed smallRNA reads which are putative 
+guideRNAs. Each read has a duplication number (how many duplicate sequences of itself is found in the original 
+sequence file), an RNA sequence, and alignment information: where each sRNA read aligned to each of the 
+minicircle sequences (some align to more than 1 or no minicircle sequences, and can align at more than two 
+different positions within the same minicircle sequence). This is a very big file, so we may just store alignment
+information (processed from BED format) into the database and not each individual smallRNA sequence.
 \item The sequences for the known minicircle conserved regions CSB1, CSB2, and CSB3. These are short sequences that are commonly found in curated minicircles (CSB3 is associated with the origin of replication). We’d like to be able to query which putative minicircle sequences contain each or combinations of these regions. 
     \end{enumerate}
 
@@ -80,12 +85,84 @@ generate a Multiple Sequence Alignment of these sequences on the fly (or precomp
 
 \end{section}
 
+
+
+
+
+\begin{section}{Tasks to accomplish}
+    We plan to implement the following:
+
+    \begin{enumerate}
+        \item Create database tables (on bioed)
+        \item Ensure database conforms to ER diagram
+        \item Write cgi interface to database
+        \begin{enumerate}
+            \item About page (introduction)
+            \item A separate page for data retrieval/search, including:
+                \begin{enumerate}
+                    \item CSB based filtering
+                    \item Coverage based filtering
+                    \item Auto-complete features for searches
+                    \item Dataset download ability
+                \end{enumerate}
+            \item Multiple sequence alignment page:
+                \begin{enumerate}
+                    \item Display multiple sequence alignments
+                    \item Download
+                \end{enumerate}
+        \end{enumerate}
+        \item Data download
+        \item Testing
+    \end{enumerate}
+
+\end{section}
+
+
+
 \begin{section}{ER diagram}
     Here we present an entity-relationship diagram that represents how we plan to build our database:
 
     \includegraphics[width=.8\textwidth]{ERdiagram-crop.pdf}
     
 \end{section}
+
+
+\begin{section}{Tables}
+    These are the tables we plan to implement in our project, with all fields listed. Primary keys are underlined,
+    and foreign keys are italicized.
+
+    \begin{itemize}
+        \item \bfseries{CSB}: \underline{csbid}, sequence
+        \item \bfseries{smallRNA}: \underline{smid}, sequence, copynumber
+        \item \bfseries{dataset}: \underline{did}
+        \item \bfseries{minicircles}: \underline{mid}, \textit{did}, sequence, clusternumber
+        \item \bfseries{csb\_maps}: \underline{\textit{csbid},\textit{mid},startpos}, endpos, strandinfo, quality
+        \item \bfseries{smrna\_maps}: \underline{\textit{smid}, \textit{mid}}, startpos, endpos, strandinfo, quality
+    \end{itemize}
+    
+    As indicated by the ER diagram above we will have tables for smRNAs, minicircles, CSBs, datasets, and the maps of both 
+    CSBs and smRNAs onto minicircles. These last two tables represent many-to-many relationships, and so they need their own 
+    table. The relationships between our three sequence tables (minicircles, smRNAs, and CSBs) and the dataset table are all one to
+    many, as each sequence may only belong to one dataset, a dataset being here defined as describing the origin of the sequences,
+    the platform they were sequenced on, and other similar metadata. This relationship will be contained in the table structure 
+    by having a dataset field holding a \underline{did} in each of these sequence tables. 
+
+
+\end{section}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
