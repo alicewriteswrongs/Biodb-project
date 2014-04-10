@@ -31,7 +31,7 @@ CREATE TABLE minicircles (
     sequence TEXT(2000) NOT NULL,
     clusternum INT,
     PRIMARY KEY (mid),
-    FOREIGN KEY datasetid REFERENCES dataset(did)
+    FOREIGN KEY (datasetid) REFERENCES dataset (did)
 )
 ENGINE = INNODB;
 
