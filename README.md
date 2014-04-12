@@ -11,3 +11,9 @@ Currently:
     * ERdiagram.pdf
     * ERdiagram-crop.pdf
     * ERdiagram.dia
+
+##Todo:
+
+* get data into tables
+* get tables and data onto bioed
+
