@@ -93,7 +93,7 @@ def insert_csb(fasta,cursor,connection):
 ########END FUNCTIONS
 
 
-########ACTUALLY DOING STUFF!
+########MAIN
 
 
 
