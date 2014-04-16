@@ -42,7 +42,6 @@ def run_query(cursor, query):
 ####FASTA PARSING
 
 
-
 def read_file(file):
     """
     Just reads in a file at the location it is passed
@@ -51,23 +50,40 @@ def read_file(file):
         data = myfile.read()
     return data
 
-##functions for dealing with our various datafiles
+##functions for dealing with our various datafiles (parsing them into lists)
 
+#csb functions
 def format_csb(data):
     """
     Inserts our CSB files into the CSB table, expects a long string
     (normal result of calling read_file on csb.fasta)
     Returns a nicely formatted list which we can iterate through with a query function
     """
-    data = data.split('\n')
-    query = """
-    INSERT 
+    data = data.replace('>','') #remove the > character from fasta headers
+    data = data.split('\n')  #split string into list based on newline character
+    data.pop()   #remove '' (last item in list)
+    return data
+
+def insert_csb(fasta,cursor):
     """
+    takes a formatted fasta list (from format_csb) and a cursor, and executes querys to
+    insert the data in the list into the database connection specified by the cursor
+    """
+    i = 0
+    while i < len(fasta):
+       query = """
+       INSERT INTO csb(csbid,sequence) VALUES ('%s', '%s');
+       """ % (fasta[i], fasta[i+1])
+       cursor.execute(query)
+       i += 2
+    
+        
 
 
 
 
 
+########END FUNCTIONS
 
 
 ########ACTUALLY DOING STUFF!
