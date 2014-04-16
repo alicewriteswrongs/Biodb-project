@@ -63,6 +63,28 @@ def format_csb(data):
     data.pop()   #remove '' (last item in list)
     return data
 
+#minicircle functions
+def format_minicircle(data):
+    """
+    Takes the contents of a minicircle file and returns a list of identifiers and sequences
+    (in order [id,sequence,id,sequence,....])
+    """
+    seqout = []
+    datasplit = data.split('>')
+    datasplit.pop(0)
+    for i in datasplit:
+        split = i.split('\n')
+        header = split[0]
+        split.pop(0)
+        seq = ''
+        for i in split:
+            seq += i
+        seqout.append(header)
+        seqout.append(seq)
+    return seqout
+
+        
+
 ####INSERTING RECORDS####
 
 def insert_csb(fasta,cursor,connection):
@@ -98,8 +120,8 @@ def insert_csb(fasta,cursor,connection):
 cursor, connection = connect_db('msad')
 
 #read in file
-file = "/home/benpote/Code/biological_databases/group_project/data/csb.fasta"
-csb_data = read_file(file)
+filein = "/home/benpote/Code/biological_databases/group_project/data/csb.fasta"
+csb_data = read_file(filein)
 
 #format and insert!
 csb_formatted = format_csb(csb_data)
@@ -109,4 +131,24 @@ insert_csb(csb_formatted,cursor,connection)
 close_db(cursor, connection)
 
 ##END CSB##
+
+##Minicircles##
+
+#db connection
+cursor, connection = connect_db('msad')
+
+#starting with the genbank minicircles
+
+filein = "/home/benpote/Code/biological_databases/group_project/data/genbank_minicircles.fasta"
+minicirc_data = read_file(filein)
+
+#format the data, so we can start thinking about inserting it
+#(note that for minicircles the dataset table must already be populated)
+minicirc_format = format_minicircle(minicirc_data)
+
+#insert this data into our tables
+
+
+
+
 
