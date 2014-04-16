@@ -64,7 +64,7 @@ def format_csb(data):
     data.pop()   #remove '' (last item in list)
     return data
 
-def insert_csb(fasta,cursor):
+def insert_csb(fasta,cursor,connection):
     """
     takes a formatted fasta list (from format_csb) and a cursor, and executes querys to
     insert the data in the list into the database connection specified by the cursor
@@ -76,9 +76,16 @@ def insert_csb(fasta,cursor):
        """ % (fasta[i], fasta[i+1])
        cursor.execute(query)
        i += 2
-    
-        
+    connection.commit()
 
+##EX:
+#to insert csbs you would do something like:
+    # (with a db connection set up already)
+
+    # file = "/home/benpote/Code/biological_databases/group_project/data/csb.fasta"
+    # data = read_file(file)
+    # csb = format_csb(data)
+    # insert_csb(csb,cursor,connection)
 
 
 
@@ -88,22 +95,23 @@ def insert_csb(fasta,cursor):
 
 ########ACTUALLY DOING STUFF!
 
-file = "/home/benpote/Code/biological_databases/group_project/data/csb.fasta"
-
-data = read_file(file)
 
 
 
-#connect to our database
+
+#insert csb into database (works on my laptop, adjust for bioed)
+
+#db connection
 cursor, connection = connect_db('msad')
 
-#a really boring example query
-query = """
-SHOW TABLES;
-"""
-#get the results!
-results = run_query(cursor, query)
-#print to see if it works
-print results
-#close the connection to our database 
+#read in file
+file = "/home/benpote/Code/biological_databases/group_project/data/csb.fasta"
+csb_data = read_file(file)
+
+#format and insert!
+csb_formatted = format_csb(csb_data)
+insert_csb(csb_formatted,cursor,connection)
+
+#close database connection
 close_db(cursor, connection)
+
