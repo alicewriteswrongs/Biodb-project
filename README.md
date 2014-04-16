@@ -6,6 +6,7 @@ Currently:
 
 * fastaintodb.py - inserts our data into the appropriate tables
 * maketables.sql - SQL commands to make the tables we want in our database
+* populatedatasets.py - inserts the records for the 'dataset' table
 * proposal
     * proposal.tex
     * proposal.pdf
