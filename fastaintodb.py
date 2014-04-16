@@ -5,13 +5,13 @@
 #this script assumes that the data is located in biodb_project/data (where it is on my laptop)
 #######
 
-#########HEADER
+#########HEADER#########
 
 import MySQLdb
 
-#########FUNCTIONS
+#########FUNCTIONS#########
 
-####DATABASE CONNECTION
+####DATABASE CONNECTION####
 
 #the below is just copied from yozen code
 def connect_db(dbase):
@@ -39,8 +39,7 @@ def run_query(cursor, query):
     rows = cursor.fetchall()
     return rows
 
-####FASTA PARSING
-
+####FASTA PARSING####
 
 def read_file(file):
     """
@@ -50,9 +49,9 @@ def read_file(file):
         data = myfile.read()
     return data
 
-##functions for dealing with our various datafiles (parsing them into lists)
+##functions for dealing with our various datafiles (parsing them into lists)##
 
-#csb functions
+#csb functions#
 def format_csb(data):
     """
     Inserts our CSB files into the CSB table, expects a long string
@@ -63,6 +62,8 @@ def format_csb(data):
     data = data.split('\n')  #split string into list based on newline character
     data.pop()   #remove '' (last item in list)
     return data
+
+####INSERTING RECORDS####
 
 def insert_csb(fasta,cursor,connection):
     """
@@ -78,27 +79,14 @@ def insert_csb(fasta,cursor,connection):
        i += 2
     connection.commit()
 
-##EX:
-#to insert csbs you would do something like:
-    # (with a db connection set up already)
-
-    # file = "/home/benpote/Code/biological_databases/group_project/data/csb.fasta"
-    # data = read_file(file)
-    # csb = format_csb(data)
-    # insert_csb(csb,cursor,connection)
 
 
+########END FUNCTIONS#########
 
 
-########END FUNCTIONS
+########MAIN#########
 
-
-########MAIN
-
-
-
-
-
+##CSB##
 #insert csb into database (works on my laptop, adjust for bioed)
 
 #db connection
@@ -114,4 +102,6 @@ insert_csb(csb_formatted,cursor,connection)
 
 #close database connection
 close_db(cursor, connection)
+
+##END CSB##
 
