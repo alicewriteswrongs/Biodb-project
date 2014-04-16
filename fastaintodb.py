@@ -83,13 +83,11 @@ def format_minicircle(data):
         seqout.append(seq)
     return seqout
 
-        
-
 ####INSERTING RECORDS####
 
 def insert_csb(fasta,cursor,connection):
     """
-    takes a formatted fasta list (from format_csb) and a cursor, and executes querys to
+    takes a formatted fasta list (from format_csb) and a cursor, and executes queries to
     insert the data in the list into the database connection specified by the cursor
     """
     i = 0
@@ -102,6 +100,11 @@ def insert_csb(fasta,cursor,connection):
     connection.commit()
     #note: need commit on any 'update' or 'insert' type of query (where a table is changed)
 
+def insert_minicirc(fasta,cursor,connection):
+    """
+    Takes a formatted list (from format_minicircle) and a cursor, and executes queries to
+    insert the data in the list into the database connection specified by the cursor
+    """
 
 
 ########END FUNCTIONS#########
