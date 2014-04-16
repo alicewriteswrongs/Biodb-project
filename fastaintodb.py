@@ -78,6 +78,7 @@ def insert_csb(fasta,cursor,connection):
        cursor.execute(query)
        i += 2
     connection.commit()
+    #note: need commit on any 'update' or 'insert' type of query (where a table is changed)
 
 
 
@@ -85,6 +86,10 @@ def insert_csb(fasta,cursor,connection):
 
 
 ########MAIN#########
+
+#We can write scripts below here to add each of our types of data to the database
+#Just comment out the ones you don't need (if, for instance, a table is already 
+#correctly populated).
 
 ##CSB##
 #insert csb into database (works on my laptop, adjust for bioed)
