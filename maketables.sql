@@ -21,6 +21,7 @@ ENGINE = INNODB;
 
 CREATE TABLE dataset (
     did VARCHAR(25) NOT NULL,
+    description VARCHAR(100),
     PRIMARY KEY (did)
 )
 ENGINE = INNODB;
