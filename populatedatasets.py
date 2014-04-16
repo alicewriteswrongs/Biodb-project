@@ -6,6 +6,8 @@
 
 ###add datasets
 
+#currently just adds two datasets, pretty easy to add more
+#(delete records in the table, and more to the dictionary below, rerun script)
 datasets = {1:'genbank dataset',2:'pacbio dataset'}
 
 def add_datasets(cursor,connection):
