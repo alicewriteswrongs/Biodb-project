@@ -27,9 +27,10 @@ CREATE TABLE dataset (
 ENGINE = INNODB;
 
 CREATE TABLE minicircles (
-    mid VARCHAR(25) NOT NULL,
+    mid INTEGER NOT NULL AUTO INCREMENT,
     datasetid VARCHAR(25) NOT NULL,
     sequence TEXT(2000) NOT NULL,
+    description VARCHAR(100),
     clusternum INT,
     PRIMARY KEY (mid),
     FOREIGN KEY (datasetid) REFERENCES dataset (did)
