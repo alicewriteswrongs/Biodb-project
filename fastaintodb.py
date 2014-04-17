@@ -100,11 +100,21 @@ def insert_csb(fasta,cursor,connection):
     connection.commit()
     #note: need commit on any 'update' or 'insert' type of query (where a table is changed)
 
-def insert_minicirc(fasta,cursor,connection):
+def insert_minicirc(fasta,cursor,connection,datasetid):
     """
     Takes a formatted list (from format_minicircle) and a cursor, and executes queries to
     insert the data in the list into the database connection specified by the cursor
+    Needs arguments: fasta, cursor, connection, datasetid
     """
+    i = 0
+    while i < len(fasta):
+        query = """
+        INSERT INTO minicircles(datasetid,sequence,description) VALUES ('%d','%s','%s');
+        """ % (datasetid,fasta[i+1],fasta[i]) #fasta[i+1] is sequence
+        cursor.execute(query)                 #fasta[i] is the desc. header
+        i += 2
+    connection.commit()
+    
 
 
 ########END FUNCTIONS#########
@@ -150,8 +160,12 @@ minicirc_data = read_file(filein)
 minicirc_format = format_minicircle(minicirc_data)
 
 #insert this data into our tables
+insert_minicirc(minicirc_format,cursor,connection,1)
 
+#close db
+close_db(cursor,connection)
 
+#this appears to work! I've only tested it with the genbank sequences so far
 
 
 
