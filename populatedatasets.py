@@ -20,6 +20,9 @@ def add_datasets(cursor,connection):
 
 ###run it!
 
+#a couple times this has worked properly in ipython, but not
+#when calling it from the commandline - ??
+
 cursor, connection = connect_db('msad')
 add_datasets(cursor,connection)
 close_db(cursor, connection)
