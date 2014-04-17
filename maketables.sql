@@ -27,7 +27,7 @@ CREATE TABLE dataset (
 ENGINE = INNODB;
 
 CREATE TABLE minicircles (
-    mid INTEGER NOT NULL AUTO INCREMENT,
+    mid INTEGER NOT NULL AUTO_INCREMENT,
     datasetid VARCHAR(25) NOT NULL,
     sequence TEXT(2000) NOT NULL,
     description VARCHAR(100),
@@ -39,7 +39,7 @@ ENGINE = INNODB;
 
 CREATE TABLE csb_maps (
     csbid VARCHAR(25) NOT NULL,
-    mid VARCHAR(25) NOT NULL,
+    mid INTEGER NOT NULL,
     startpos INT NOT NULL,
     endpos INT NOT NULL,
     strandinfo VARCHAR(25) NOT NULL,
@@ -52,7 +52,7 @@ ENGINE = INNODB;
 
 CREATE TABLE smrna_maps (
     smid VARCHAR(25) NOT NULL,
-    mid VARCHAR(25) NOT NULL,
+    mid INTEGER NOT NULL,
     startpos INT NOT NULL,
     endpos INT NOT NULL,
     strandinfo VARCHAR(25) NOT NULL,
