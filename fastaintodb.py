@@ -116,20 +116,19 @@ def format_insert_smRNA(filein):
     copynumber = 0
     header = ''
     seq = ''
-    with open(filein) as file:
-        for line in enumerate(filein):
+    with open(filein) as seqfile:
+        for line in enumerate(seqfile):
             count, txt = line
             if count % 2 == 0:
                 if header == '':
                     header = txt.split('-')[1]
-                    copynumber = txt.split('-')[0]
-                    copynumber.replace('>','')
-                    copynumber = int(copynumber)
+                    copynumber = int(txt.split('-')[0].replace('>',''))
                 else:
                     query = """
                     INSERT INTO smallrna(smid, sequence, copynum) VALUES ('%s','%s','%d');
                     """ % (header, seq, copynumber)
                     cursor.execute(query)
+                    header = txt.split
             else:
                 seq = txt
     connection.commit()
