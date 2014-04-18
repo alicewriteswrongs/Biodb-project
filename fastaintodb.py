@@ -114,21 +114,22 @@ def format_insert_smRNA(filein):
     need to parse header to get copy number out.
     """
     copynumber = 0
-    header = ''
+    idnum = 0
     seq = ''
     with open(filein) as seqfile:
         for line in enumerate(seqfile):
             count, txt = line
             if count % 2 == 0:
-                if header == '':
-                    header = txt.split('-')[1]
-                    copynumber = int(txt.split('-')[0].replace('>',''))
+                if idnum == '':
+                    copynumber = int(txt.split('-')[1])
+                    idnum = int(txt.split('-')[0].replace('>',''))
                 else:
                     query = """
                     INSERT INTO smallrna(smid, sequence, copynum) VALUES ('%s','%s','%d');
-                    """ % (header, seq, copynumber)
+                    """ % (idnum, seq, copynumber)
                     cursor.execute(query)
-                    header = txt.split
+                    idnum = int(txt.split('-')[0].replace('>',''))
+                    copynumber = int(txt.split('-')[1])
             else:
                 seq = txt
     connection.commit()
