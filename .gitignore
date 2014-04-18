@@ -6,3 +6,4 @@ data/*
 *.out
 *.autosave
 *.dia~
+*.swo
