@@ -17,7 +17,13 @@ Currently:
 
 ##Using fastaintodb.py:
 
-The script is broken up into several sections.
+The script is broken up into several sections. This script should be run (on bioed) after:
+
+* Running maketables.sql and verifying table structure
+* Running populatedatasets.py
+
+And that should be it! Note that fastaintodb.py Just gets in the sequence data - it doesn't
+insert any of our alignment data.
 
 ####Definitions:
 
