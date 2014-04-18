@@ -107,7 +107,33 @@ def format_insert_minicircle(filein,cursor,connection,datasetid):
                 seq = txt
     connection.commit()
                     
-            
+def format_insert_smRNA(filein):
+    """
+    Takes a filepath for the smRNA file, inserts the data into the smRNA table.
+    Need to do this line-by-line, using same algorithm as for big minicircles, but
+    need to parse header to get copy number out.
+    """
+    copynumber = 0
+    header = ''
+    seq = ''
+    with open(filein) as file:
+        for line in enumerate(filein):
+            count, txt = line
+            if count % 2 == 0:
+                if header == '':
+                    header = txt.split('-')[1]
+                    copynumber = txt.split('-')[0]
+                    copynumber.replace('>','')
+                    copynumber = int(copynumber)
+                else:
+                    query = """
+                    INSERT INTO smallrna(smid, sequence, copynum) VALUES ('%s','%s','%d');
+                    """ % (header, seq, copynumber)
+                    cursor.execute(query)
+            else:
+                seq = txt
+    connection.commit()
+
 
 
         
@@ -173,6 +199,7 @@ def insert_minicirc(fasta,cursor,connection,datasetid):
     Takes a formatted list (from format_minicircle) and a cursor, and executes queries to
     insert the data in the list into the database connection specified by the cursor
     Needs arguments: fasta, cursor, connection, datasetid
+    Also recall that this is only usable for smaller datasets
     """
     i = 0
     while i < len(fasta):
@@ -183,20 +210,6 @@ def insert_minicirc(fasta,cursor,connection,datasetid):
         i += 2
     connection.commit()
     
-def insert_smRNA(fasta,cursor,connection):
-    """
-    Takes a formatted list (from format_minicircle) and a cursor, and executes queries to
-    insert the data in the list into the database connection specified by the cursor
-    Needs arguments: fasta, cursor, connection, datasetid
-    """
-    i = 0
-    while i < len(fasta):
-        query = """
-        INSERT INTO smallrna(smid, sequence, copynum) VALUES ('%d','%s','%d');
-        """ % (fasta[i],fasta[i+2],fasta[i+1]) #fasta[i+1] is copynum
-        cursor.execute(query) #fasta[i] is the smallRNA id, fasta[i+2] is seq 
-        i += 3
-    connection.commit()
  
 
 ########END FUNCTIONS#########
@@ -208,66 +221,42 @@ def insert_smRNA(fasta,cursor,connection):
 #Just comment out the ones you don't need (if, for instance, a table is already 
 #correctly populated).
 
-##CSB##
-#insert csb into database (works on my laptop, adjust for bioed)
+##BIOED SCRIPT
+#if you uncomment everything here and run it on bioed it should insert everything
 
-#db connection
+#CSB
+#we'll start with the CSBs (easiest!)
+
 cursor, connection = connect_db('msad')
 
-#read in file
-filein = "/home/benpote/Code/biological_databases/group_project/data/csb.fasta"
+#read in the file
+filein = "/var/www/data/msad/csb_sequences/csb.fasta"
 csb_data = read_file(filein)
 
-#format and insert!
+#format and insert
 csb_formatted = format_csb(csb_data)
 insert_csb(csb_formatted,cursor,connection)
 
-#close database connection
-close_db(cursor, connection)
+#csbs should be good now, next is:
+#minicircles!
 
-##END CSB##
+#first the easy ones (genbank)
 
-##Minicircles##
-
-#db connection
-cursor, connection = connect_db('msad')
-
-#starting with the genbank minicircles
-
-filein = "/home/benpote/Code/biological_databases/group_project/data/genbank_minicircles.fasta"
+filein = "/var/www/data/msad/minicircles_sequences/genbank_minicircles.fasta"
 minicirc_data = read_file(filein)
-
-#format the data, so we can start thinking about inserting it
-#(note that for minicircles the dataset table must already be populated)
 minicirc_format = format_minicircle(minicirc_data)
-
-#insert this data into our tables
 insert_minicirc(minicirc_format,cursor,connection,1)
 
-#close db
-close_db(cursor,connection)
+#now the more difficult ones (computationally speaking)
 
-#this appears to work! I've only tested it with the genbank sequences so far
-
-#pacbio minicircles
-filein = "/home/benpote/Code/biological_databases/group_project/data/minicircles/pacbio_minicircles_filtered_maxiremoved.fasta"
-
-pacbio_data = read_file(filein)
-
+#pacbio
+filein = "/var/www/data/msad/minicircles_sequences/pacbio_minicircles_filtered_maxiremoved.fasta"
 format_insert_minicircles(filein,cursor,connection,2)
 
+#hong-simpson
+filein = "/var/www/data/msad/minicircles_sequences/HongSimpson.fasta"
+format_insert_minicircles(filein,cursor,connection,3) 
 
-#hong-simpson minicircles
-filein = "/home/benpote/Code/biological_databases/group_project/data/minicircles/HongSimpson.fasta"
+#good on the minicircles, now we need to handle the smRNAs
+#(similar to large file minicircle method)
 
-format_insert_minicircles(filein,cursor,connection,3)
-
-
-close_db(cursor,connection)
-
-
-##END Minicircles
-
-##smRNAs
-
-filein = "/home/benpote/Code/biological_databases/group_project/data/smRNA/smallRNA_filtered_collapsed_nuclear_removed.fasta"
