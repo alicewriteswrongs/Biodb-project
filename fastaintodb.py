@@ -83,6 +83,33 @@ def format_minicircle(data):
         seqout.append(seq)
     return seqout
 
+#
+
+def format_smRNA(data):
+    """
+    Takes the contents of the smallRNA fasta file and returns a list of id, seq, and 
+    copy number (in order [id, copynum, seq, id, copynum, seq....])
+    """
+    seqout = []
+    data = data.replace('>','') #remove the > character from fasta headers
+    datasplit = data.split('\n')
+    print datasplit
+    
+    j = 0
+    for item in datasplit:
+	if j in range(0,len(datasplit),2):
+		split = item.split('-')
+		id = split[0]
+		copynum = split[1] 
+		seqout.append(id)
+		seqout.append(copynum)
+		j +=1
+	else:
+		seqout.append(item)
+		j +=1
+     print seqout
+
+
 ####INSERTING RECORDS####
 
 def insert_csb(fasta,cursor,connection):
@@ -115,7 +142,21 @@ def insert_minicirc(fasta,cursor,connection,datasetid):
         i += 2
     connection.commit()
     
-
+def insert_smRNA(fasta,cursor,connection):
+    """
+    Takes a formatted list (from format_minicircle) and a cursor, and executes queries to
+    insert the data in the list into the database connection specified by the cursor
+    Needs arguments: fasta, cursor, connection, datasetid
+    """
+    i = 0
+    while i < len(fasta):
+        query = """
+        INSERT INTO smallrna(smid, sequence, copynum) VALUES ('%d','%s','%d');
+        """ % (fasta[i],fasta[i+2],fasta[i+1]) #fasta[i+1] is copynum
+        cursor.execute(query) #fasta[i] is the smallRNA id, fasta[i+2] is seq 
+        i += 3
+    connection.commit()
+ 
 
 ########END FUNCTIONS#########
 
@@ -167,5 +208,13 @@ close_db(cursor,connection)
 
 #this appears to work! I've only tested it with the genbank sequences so far
 
+#pacbio minicircles
+filein = "/home/benpote/Code/biological_databases/group_project/data/pacbio_minicircles_filtered_maxiremoved.fasta"
+
+pacbio_data = read_file(filein)
+
+##END Minicircles
+
+##smRNAs
 
 
