@@ -68,6 +68,7 @@ def format_minicircle(data):
     """
     Takes the contents of a minicircle file and returns a list of identifiers and sequences
     (in order [id,sequence,id,sequence,....])
+    This function is appropriate for the small one (genbank dataset)
     """
     seqout = []
     datasplit = data.split('>')
@@ -83,7 +84,48 @@ def format_minicircle(data):
         seqout.append(seq)
     return seqout
 
-#
+def format_insert_minicircle(filein,cursor,connection,datasetid):
+    """
+    takes a file containing minicircle data and reads it in one line at a time
+    this is necessary for the larger files (pacbio, hongsimpson)
+    """
+    header = ''
+    seq = ''
+    with open(filein) as file:
+        for line in enumerate(file):
+            count, txt = line
+            if count % 2 == 0:
+                if header == '':
+                    header = txt
+                else:
+                    query = """
+                    INSERT INTO minicircles(datasetid,sequence,description) VALUES ('%d','%s','%s');
+                    """ % (datasetid,seq,header)
+                    cursor.execute(query)
+                    header = txt
+            else:
+                seq = txt
+    connection.commit()
+                    
+            
+
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def format_smRNA(data):
     """
@@ -94,7 +136,6 @@ def format_smRNA(data):
     data = data.replace('>','') #remove the > character from fasta headers
     datasplit = data.split('\n')
     print datasplit
-    
     j = 0
     for item in datasplit:
 	if j in range(0,len(datasplit),2):
@@ -107,7 +148,7 @@ def format_smRNA(data):
 	else:
 		seqout.append(item)
 		j +=1
-     print seqout
+    return seqout
 
 
 ####INSERTING RECORDS####
@@ -209,12 +250,24 @@ close_db(cursor,connection)
 #this appears to work! I've only tested it with the genbank sequences so far
 
 #pacbio minicircles
-filein = "/home/benpote/Code/biological_databases/group_project/data/pacbio_minicircles_filtered_maxiremoved.fasta"
+filein = "/home/benpote/Code/biological_databases/group_project/data/minicircles/pacbio_minicircles_filtered_maxiremoved.fasta"
 
 pacbio_data = read_file(filein)
+
+format_insert_minicircles(filein,cursor,connection,2)
+
+
+#hong-simpson minicircles
+filein = "/home/benpote/Code/biological_databases/group_project/data/minicircles/HongSimpson.fasta"
+
+format_insert_minicircles(filein,cursor,connection,3)
+
+
+close_db(cursor,connection)
+
 
 ##END Minicircles
 
 ##smRNAs
 
-
+filein = "/home/benpote/Code/biological_databases/group_project/data/smRNA/smallRNA_filtered_collapsed_nuclear_removed.fasta"
