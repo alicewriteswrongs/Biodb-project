@@ -9,7 +9,7 @@
 
 import MySQLdb
 
-#########FUNCTIONS#########
+#########FUNCTIONS######### i
 
 ####DATABASE CONNECTION####
 
@@ -113,23 +113,22 @@ def format_insert_smRNA(filein):
     Need to do this line-by-line, using same algorithm as for big minicircles, but
     need to parse header to get copy number out.
     """
-    copynumber = 0
-    idnum = 0
+    copynumber = ''
+    header = ''
     seq = ''
     with open(filein) as seqfile:
         for line in enumerate(seqfile):
             count, txt = line
             if count % 2 == 0:
-                if idnum == '':
-                    copynumber = int(txt.split('-')[1])
-                    idnum = int(txt.split('-')[0].replace('>',''))
+                if header == '':
+                    header = txt.split('-')[1]
+                    copynumber = int(txt.split('-')[0].replace('>',''))
                 else:
                     query = """
                     INSERT INTO smallrna(smid, sequence, copynum) VALUES ('%s','%s','%d');
-                    """ % (idnum, seq, copynumber)
+                    """ % (header, seq, copynumber)
                     cursor.execute(query)
-                    idnum = int(txt.split('-')[0].replace('>',''))
-                    copynumber = int(txt.split('-')[1])
+                    header = txt.split
             else:
                 seq = txt
     connection.commit()
