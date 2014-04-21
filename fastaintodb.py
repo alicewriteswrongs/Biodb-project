@@ -176,40 +176,40 @@ def insert_minicirc(fasta,cursor,connection,datasetid):
 
 #NOTE: run the populatedataset.py script first!
 
-##My laptop (ben's laptop) script
+##My laptop (ben's laptop) script (make sure this is commented out on bioed!)
 #CSB
-cursor, connection = connect_db('msad')
+# cursor, connection = connect_db('msad')
 
-filein = '/home/benpote/Code/biological_databases/group_project/data/csbs/csb.fasta'
+# filein = '/home/benpote/Code/biological_databases/group_project/data/csbs/csb.fasta'
 
-csb_data = read_file(filein)
+# csb_data = read_file(filein)
 
-csb_formatted = format_csb(csb_data)
+# csb_formatted = format_csb(csb_data)
 
-insert_csb(csb_formatted,cursor,connection)
+# insert_csb(csb_formatted,cursor,connection)
 
-#minicircles
+# #minicircles
 
-filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/genbank_minicircles.fasta'
-minicirc_data = read_file(filein)
-minicirc_format = format_minicircle(minicirc_data)
-insert_minicirc(minicirc_format,cursor,connection,1)
+# filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/genbank_minicircles.fasta'
+# minicirc_data = read_file(filein)
+# minicirc_format = format_minicircle(minicirc_data)
+# insert_minicirc(minicirc_format,cursor,connection,1)
 
-#more difficult minicircles
+# #more difficult minicircles
 
-filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/pacbio_minicircles_filtered_maxiremoved.fasta'
-format_insert_minicircle(filein,cursor,connection,2)
+# filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/pacbio_minicircles_filtered_maxiremoved.fasta'
+# format_insert_minicircle(filein,cursor,connection,2)
 
-filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/HongSimpson.fasta'
-format_insert_minicircle(filein,cursor,connection,2)
+# filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/HongSimpson.fasta'
+# format_insert_minicircle(filein,cursor,connection,2)
 
-#smRNAs gahhhhh
-#trying with the smallest subset
-filein = '/home/benpote/Code/biological_databases/group_project/data/smRNA/smRNAsmallsubset.fasta'
-format_insert_smRNA(filein)
-#it works! yesssss
-#I think my computer cannot really handle the full dataset
-close_db(cursor,connection)
+# #smRNAs gahhhhh
+# #trying with the smallest subset
+# filein = '/home/benpote/Code/biological_databases/group_project/data/smRNA/smRNAsmallsubset.fasta'
+# format_insert_smRNA(filein)
+# #it works! yesssss
+# #I think my computer cannot really handle the full dataset
+# close_db(cursor,connection)
 
 ##BIOED SCRIPT
 #if you uncomment everything here and run it on bioed it should insert everything
@@ -250,4 +250,16 @@ format_insert_minicircles(filein,cursor,connection,3)
 #good on the minicircles, now we need to handle the smRNAs
 #(similar to large file minicircle method)
 
-filein = "/var/www/data/msad/
+filein = '/var/www/data/msad/smallRNA_sequences/smallRNA_filtered_collapsed_nuclear_removed.fasta'
+format_insert_smRNA(filein)
+
+close_db(cursor,connection)
+
+
+
+
+
+
+
+
+close_db(cursor,connection)
