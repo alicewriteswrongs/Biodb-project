@@ -23,8 +23,9 @@ The script is broken up into several sections. This script should be run (on bio
 * Running populatedatasets.py
 
 And that should be it! Note that fastaintodb.py Just gets in the sequence data - it doesn't
-insert any of our alignment data. It's not ready to start testing just yet, still needs some
-ironing out.
+insert any of our alignment data. As of now it can get all of our sequence data into our table
+structure. The smallRNA dataset is very large, however, so on my (Ben's) laptop I've only 
+tested a small subset (first 10000 lines).
 
 ####Definitions:
 
