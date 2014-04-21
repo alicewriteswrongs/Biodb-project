@@ -1,15 +1,15 @@
 #!/usr/bin/python
 
 #a quick script to parse a FASTA file and then insert it into a mysqlDB
-#starting with the CSBs, because they seem like the easiest thing to start with
-#this script assumes that the data is located in biodb_project/data (where it is on my laptop)
+#make sure to read the comments
+#go to the bottom of the file to see the actual script
 #######
 
 #########HEADER#########
 
 import MySQLdb
 
-#########FUNCTIONS######### i
+#########FUNCTIONS######### 
 
 ####DATABASE CONNECTION####
 
@@ -84,6 +84,9 @@ def format_minicircle(data):
         seqout.append(seq)
     return seqout
 
+#note that these two functions (format_insert_foo) do not just format the list
+#they also format and run the queries inserting our records (line by line)
+#we need to do this for the larger files because they are too big to hold in memory
 def format_insert_minicircle(filein,cursor,connection,datasetid):
     """
     takes a file containing minicircle data and reads it in one line at a time
@@ -128,48 +131,6 @@ def format_insert_smRNA(filein):
     connection.commit()
 
 
-
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def format_smRNA(data):
-    """
-    Takes the contents of the smallRNA fasta file and returns a list of id, seq, and 
-    copy number (in order [id, copynum, seq, id, copynum, seq....])
-    """
-    seqout = []
-    data = data.replace('>','') #remove the > character from fasta headers
-    datasplit = data.split('\n')
-    print datasplit
-    j = 0
-    for item in datasplit:
-	if j in range(0,len(datasplit),2):
-		split = item.split('-')
-		id = split[0]
-		copynum = split[1] 
-		seqout.append(id)
-		seqout.append(copynum)
-		j +=1
-	else:
-		seqout.append(item)
-		j +=1
-    return seqout
-
-
 ####INSERTING RECORDS####
 
 def insert_csb(fasta,cursor,connection):
@@ -203,7 +164,6 @@ def insert_minicirc(fasta,cursor,connection,datasetid):
         i += 2
     connection.commit()
     
- 
 
 ########END FUNCTIONS#########
 
@@ -249,6 +209,7 @@ filein = '/home/benpote/Code/biological_databases/group_project/data/smRNA/smRNA
 format_insert_smRNA(filein)
 #it works! yesssss
 #I think my computer cannot really handle the full dataset
+close_db(cursor,connection)
 
 ##BIOED SCRIPT
 #if you uncomment everything here and run it on bioed it should insert everything
