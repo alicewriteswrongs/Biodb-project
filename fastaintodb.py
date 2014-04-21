@@ -95,15 +95,12 @@ def format_insert_minicircle(filein,cursor,connection,datasetid):
         for line in enumerate(file):
             count, txt = line
             if count % 2 == 0:
-                if header == '':
-                    header = txt
-                else:
-                    query = """
-                    INSERT INTO minicircles(datasetid,sequence,description) VALUES ('%d','%s','%s');
-                    """ % (datasetid,seq,header)
-                    cursor.execute(query)
-                    header = txt
+                header = txt
             else:
+                query = """
+                INSERT INTO minicircles(datasetid,sequence,description) VALUES ('%d','%s','%s');
+                """ % (datasetid,seq,header)
+                cursor.execute(query)
                 seq = txt
     connection.commit()
                     
@@ -113,24 +110,21 @@ def format_insert_smRNA(filein):
     Need to do this line-by-line, using same algorithm as for big minicircles, but
     need to parse header to get copy number out.
     """
-    copynumber = ''
+    copynumber = 0
     header = ''
     seq = ''
     with open(filein) as seqfile:
         for line in enumerate(seqfile):
             count, txt = line
             if count % 2 == 0:
-                if header == '':
-                    header = txt.split('-')[1]
-                    copynumber = int(txt.split('-')[0].replace('>',''))
-                else:
-                    query = """
-                    INSERT INTO smallrna(smid, sequence, copynum) VALUES ('%s','%s','%d');
-                    """ % (header, seq, copynumber)
-                    cursor.execute(query)
-                    header = txt.split
+                header = txt.split('-')[0]
+                copynumber = int(txt.split('-')[1])
             else:
+                cursor.execute(query)
                 seq = txt
+                query = """
+                INSERT INTO smallrna(smid, sequence, copynum) VALUES ('%s','%s','%d');
+                """ % (header, seq, copynumber)
     connection.commit()
 
 
@@ -220,6 +214,32 @@ def insert_minicirc(fasta,cursor,connection,datasetid):
 #Just comment out the ones you don't need (if, for instance, a table is already 
 #correctly populated).
 
+#NOTE: run the populatedataset.py script first!
+
+##My laptop (ben's laptop) script
+#CSB
+cursor, connection = connect_db('msad')
+
+filein = '/home/benpote/Code/biological_databases/group_project/data/csbs/csb.fasta'
+
+csb_data = read_file(filein)
+
+csb_formatted = format_csb(csb_data)
+
+insert_csb(csb_formatted,cursor,connection)
+
+#minicircles
+
+filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/genbank_minicircles.fasta'
+minicirc_data = read_file(filein)
+minicirc_format = format_minicircle(minicirc_data)
+insert_minicirc(minicirc_format,cursor,connection,1)
+
+#more difficult minicircles
+
+filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/pacbio_minicircles_filtered_maxiremoved.fasta'
+format_insert_minicircle(filein,cursor,connection,2)
+
 ##BIOED SCRIPT
 #if you uncomment everything here and run it on bioed it should insert everything
 
@@ -259,3 +279,4 @@ format_insert_minicircles(filein,cursor,connection,3)
 #good on the minicircles, now we need to handle the smRNAs
 #(similar to large file minicircle method)
 
+filein = "/var/www/data/msad/
