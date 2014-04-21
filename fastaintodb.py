@@ -120,11 +120,11 @@ def format_insert_smRNA(filein):
                 header = txt.split('-')[0]
                 copynumber = int(txt.split('-')[1])
             else:
-                cursor.execute(query)
                 seq = txt
                 query = """
                 INSERT INTO smallrna(smid, sequence, copynum) VALUES ('%s','%s','%d');
                 """ % (header, seq, copynumber)
+                cursor.execute(query)
     connection.commit()
 
 
@@ -239,6 +239,16 @@ insert_minicirc(minicirc_format,cursor,connection,1)
 
 filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/pacbio_minicircles_filtered_maxiremoved.fasta'
 format_insert_minicircle(filein,cursor,connection,2)
+
+filein = '/home/benpote/Code/biological_databases/group_project/data/minicircles/HongSimpson.fasta'
+format_insert_minicircle(filein,cursor,connection,2)
+
+#smRNAs gahhhhh
+#trying with the smallest subset
+filein = '/home/benpote/Code/biological_databases/group_project/data/smRNA/smRNAsmallsubset.fasta'
+format_insert_smRNA(filein)
+#it works! yesssss
+#I think my computer cannot really handle the full dataset
 
 ##BIOED SCRIPT
 #if you uncomment everything here and run it on bioed it should insert everything
