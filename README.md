@@ -27,6 +27,8 @@ insert any of our alignment data. As of now it can get all of our sequence data 
 structure. The smallRNA dataset is very large, however, so on my (Ben's) laptop I've only 
 tested a small subset (first 10000 lines).
 
+It appears that the script works! Still need to do some confirmation on bioed.
+
 ####Definitions:
 
 This holds definitions for all of the functions we need
