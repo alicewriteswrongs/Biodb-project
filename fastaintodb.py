@@ -241,11 +241,11 @@ insert_minicirc(minicirc_format,cursor,connection,1)
 
 #pacbio
 filein = "/var/www/data/msad/minicircles_sequences/pacbio_minicircles_filtered_maxiremoved.fasta"
-format_insert_minicircles(filein,cursor,connection,2)
+format_insert_minicircle(filein,cursor,connection,2)
 
 #hong-simpson
 filein = "/var/www/data/msad/minicircles_sequences/HongSimpson.fasta"
-format_insert_minicircles(filein,cursor,connection,3) 
+format_insert_minicircle(filein,cursor,connection,3) 
 
 #good on the minicircles, now we need to handle the smRNAs
 #(similar to large file minicircle method)
