@@ -28,12 +28,12 @@ ENGINE = INNODB;
 
 CREATE TABLE minicircles (
     mid INTEGER NOT NULL AUTO_INCREMENT,
-    datasetid VARCHAR(25) NOT NULL,
+    did VARCHAR(25) NOT NULL,
     sequence TEXT(2000) NOT NULL,
     description VARCHAR(100),
     clusternum INT,
     PRIMARY KEY (mid),
-    FOREIGN KEY (datasetid) REFERENCES dataset (did)
+    FOREIGN KEY (did) REFERENCES dataset (did)
 )
 ENGINE = INNODB;
 
