@@ -14,6 +14,7 @@ Currently:
     * ERdiagram.pdf
     * ERdiagram-crop.pdf
     * ERdiagram.dia
+* test.txt - some hints about using git
 
 ##Using fastaintodb.py:
 
