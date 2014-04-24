@@ -1,1 +1,10 @@
-test
+github cheat sheet:
+
+git status
+git add FILENAME
+git commit
+will open file: leave a message, save file
+check again with git status
+
+to push to github:
+git push origin master
