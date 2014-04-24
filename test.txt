@@ -8,3 +8,6 @@ check again with git status
 
 to push to github:
 git push origin master
+
+to pull files from origin:
+git pull origin master
