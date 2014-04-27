@@ -26,7 +26,7 @@ print """
 <form name="jalview_form" method="post" action="jalview.py">
 Pick an alignment file:
     <select name="alignment">
-    <option value="/var/www/html/msad/genbankexample.fasta">test</option>
+    <option value="genbankexample.fasta">test</option>
     </select>
     <br>
     <input type="submit" name="jalview!" value="submit" />
