@@ -7,3 +7,4 @@ data/*
 *.autosave
 *.dia~
 *.swo
+*.ropeproject
