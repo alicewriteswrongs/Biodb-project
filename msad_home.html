@@ -1,0 +1,142 @@
+<html>
+
+<head>
+
+<title> MSAD - Minicircle Sequence Analysis Database </title>
+<style>
+body
+{
+	background-color:#d0e4fe;
+}
+h1
+{
+	color:black;
+	text-align:center;
+}
+h2
+{
+	font-size:20px;
+	text-align:center;
+}
+p
+{
+    position:absolute;
+    left:22.5%;
+    position:relative;
+    top:100px;
+    background-color:#99CCFF;
+    font-family:"Arial";
+    font-size:20px;
+    text-align:left;
+    width: 700px;
+    padding: 20 20px;
+}
+p.margin
+{
+    margin:100px 100px;
+}
+ul
+{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+ul.menu {
+    position:absolute;
+    left:28%;
+    height: 80px;
+    border-left: 1px solid rgba(0,0,0,0.3);
+    border-right: 1px solid rgba(255,255,255,0.3);
+    float:left;
+}
+
+
+ul.menu li {
+    list-style: none;
+    float:left;
+    height: 79px;
+    text-align: center;
+    background: -webkit-gradient(radial, 50% 100%, 10, 50% 50%, 90, from(rgba(31,169,244,1)), to(rgba(0,28,78, 1)) );
+    background: -moz-radial-gradient(center 80px 45deg, circle cover, rgba(31,169,244,1) 0%, rgba(0,28,78, 1) 100%);
+}
+ul li a {
+    display: block;
+    padding: 0 20px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
+    text-align: center;
+    line-height: 79px;
+    background : -webkit-gradient(linear, left top, left bottom, from(rgb(204,259,225)), to(rgb(51,153,225)));
+    background : -moz-linear-gradient(top, rgb(204,259,225), rgb(51,153,225));
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 700ms;
+    -moz-transition-property: background;
+    -moz-transition-duration: 700ms;
+}
+ul li a:hover {
+    background: transparent none;
+}
+
+ul li.active a{
+    background: -webkit-gradient(radial, 50% 100%, 10, 50% 50%, 90, from(rgba(31,169,244,1)), to(rgba(0,28,78, 1)) );
+    background: -moz-radial-gradient(center 80px 45deg, circle cover, rgba(31,169,244,1) 0%, rgba(0,28,78, 1) 100%);
+}
+
+</style>
+</head>
+
+<!----------------Here starts the body--------->
+<body>
+
+<h1>MSAD - Minicircle Sequence Analysis Database</h1>
+<h2>BE768 Biological Database Analysis</h2>
+
+<ul>
+<div class="container"><ul class="menu" rel="sam1">
+<li><a href="home.html">Home</a></li>
+<li><a href="about.html">About</a><li>
+<li><a href="display.html">Display</a><li>
+<li><a href="data_download.html">Data Download</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="help.html">Help</a></li>
+</ul>
+</div>
+
+<div id="content">
+<p><b>Project Overview</b>
+<br>
+<br>
+&#160;&#160;&#160;&#160;<i> Trypansoma brucei (T. brucei)</i> is a single cell protist parasite that gives rise to the African trypanosomiasis, or sleeping sickness.
+The mitochondrial genome of <i>T. brucei</i> consists of a network of circular
+ structures called minicircles (~1kb) and maxicircles (10kb).
+Maxicircles encode for protein-coding genes.
+However, such transcripts can be translated only after posttranscriptional
+deletion and insertion of uridines through a process called RNA-editing.
+This editing process is directed by short stretches of guideRNAs, which
+are encoded in minicircles. Understanding the organizational structures
+of minicircles and its encoded guideRNAs is an important step for
+deciphering the RNA-editing mechanism in <i>T. brucei</i>.
+<br>
+<img border="0" src="http://web.alsa.org/images/content/pagebuilder/176683.jpg" width="304" height="228">
+<img border="0" src="http://www.nature.com/polopoly_fs/7.9190.1362153156!/image/494415a.jpg_gen/derivatives/landscape_300/494415a.jpg" width="304" height="228">
+<br>
+<br>
+&#160;&#160;&#160;&#160;Here, we create a database for visualising next-generation sequencing data from mitochondrial mini-
+circle DNA and small RNAs (putative guideRNAs) isolated from <i>T. brucei</i>. The database will facilitate
+the storage and analysis of minicircle sequences. Analyses to be performed include aligning reads and
+categorizing minicircles based on the minicircle conserved regions they contain.
+<br>
+<br>
+&#160;&#160;&#160;&#160;Using MSAD, users would be able to retrieve and download information on minicircle sequences
+based on specic ltering criteria, including presence of conserved regions (CSBs), alignment coverage
+by smallRNA, etc. In addition, we wish to provide visualization for the minicircle sequence alignment
+information such as displaying the pileup of mapped sRNA reads along a specied minicircle query. If
+time permits, we will also visualize alignment for a given minicircle cluster.
+</p>
+
+</div>
+
+</body>
+</html>
+
