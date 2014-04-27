@@ -52,7 +52,8 @@ if form:
             <param name="type" value="file"/>
             <param name="nojmol" value="true"/>
     </applet> """ % (alignment)
-
+#I think in the above we just need to update the 'option value' to point to the right location
+#not sure how to get the script (running in /var/www/cgi-bin) to recognize a file in /var/www/html/
 #print a tail
 
 print """
