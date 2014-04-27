@@ -38,6 +38,10 @@ form = cgi.FieldStorage()
 if form:
     alignment = form["alignment"].value
     print """
+    <script type="text/javascript" src="http://www.jalview.org/examples/javascript/jalview.js">
+    </script>
+
+
     <applet code="jalview.bin.JalviewLite" width="800" height="400" archive="jalviewApplet.jar">
             <param name="permissions" value="sandbox"/>
             <param name="file" value="%s"/>
