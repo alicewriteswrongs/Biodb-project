@@ -22,6 +22,7 @@ Currently:
 * jalview is what we're using to embed alignments into our 'display' page
 * have it working in a basic sense (can display a test fasta alignment)
 * it wants us to package our data in a .zip
+    * if it's in a .zip archive you can just call it in the same way as normal
 
 ##Using fastaintodb.py:
 
