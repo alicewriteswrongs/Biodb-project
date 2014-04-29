@@ -79,6 +79,6 @@ def insert_minicirc(fasta,cursor,connection,datasetid):
 
 cursor, connection = connect_db('msad')
 filein = "/var/www/data/msad/minicircles_sequences/HongSimpson.fasta"
-hongsimpsondata = readfile(filein)
+hongsimpsondata = read_file(filein)
 hongformatted = format_minicircle(hongsimpsondata)
 insert_minicirc(hongformatted)
