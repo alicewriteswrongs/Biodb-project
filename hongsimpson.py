@@ -81,4 +81,4 @@ cursor, connection = connect_db('msad')
 filein = "/var/www/data/msad/minicircles_sequences/HongSimpson.fasta"
 hongsimpsondata = read_file(filein)
 hongformatted = format_minicircle(hongsimpsondata)
-insert_minicirc(hongformatted)
+insert_minicirc(hongformatted,cursor,connection,3)
