@@ -245,7 +245,9 @@ format_insert_minicircle(filein,cursor,connection,2)
 
 #hong-simpson
 filein = "/var/www/data/msad/minicircles_sequences/HongSimpson.fasta"
-format_insert_minicircle(filein,cursor,connection,3) 
+hongsimpsondata = read_file(filein)
+hongformatted = format_minicircle(hongsimpsondata)
+insert_minicirc(hongformatted,cursor,connection,3)
 
 #good on the minicircles, now we need to handle the smRNAs
 #(similar to large file minicircle method)
