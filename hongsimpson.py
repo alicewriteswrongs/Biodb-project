@@ -1,5 +1,6 @@
 #script to just insert the Hong-simpson reads
 
+import MySQLdb
 
 #the below is just copied from yozen code
 def connect_db(dbase):
