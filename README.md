@@ -7,6 +7,7 @@ Currently:
 * fastaintodb.py - inserts our data into the appropriate tables
 * maketables.sql - SQL commands to make the tables we want in our database
 * populatedatasets.py - inserts the records for the 'dataset' table
+* hongsimposon.py - inserst just the hong-simpson sequences
 * droptables.sql - drops the tables in the right order (foreign key constraints)
 * proposal
     * proposal.tex
@@ -29,6 +30,12 @@ structure. The smallRNA dataset is very large, however, so on my (Ben's) laptop 
 tested a small subset (first 10000 lines).
 
 It appears that the script works! Still need to do some confirmation on bioed.
+
+###Hong-Simpson problems
+
+Original version of fastaintodb.py script didn't insert the Hong-Simpson.fasta correctly.
+Updated script so now it does, also wrote an additional script (hongsimpson.py) which inserts
+them on their own.
 
 ####Definitions:
 
