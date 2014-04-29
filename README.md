@@ -17,6 +17,12 @@ Currently:
     * ERdiagram.dia
 * test.txt - some hints about using git
 
+##Jalview
+
+* jalview is what we're using to embed alignments into our 'display' page
+* have it working in a basic sense (can display a test fasta alignment)
+* it wants us to package our data in a .zip
+
 ##Using fastaintodb.py:
 
 The script is broken up into several sections. This script should be run (on bioed) after:
@@ -46,9 +52,3 @@ This holds definitions for all of the functions we need
 This has commands and function calls written out to insert the various kinds of data.
 
 Make sure to comment out ones you don't need! 
-
-##Todo:
-
-* get data into tables
-* get tables and data onto bioed
-
