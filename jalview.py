@@ -20,10 +20,9 @@ print """
 </p>
 """
 
-
-#print form
+#print form and page
 print """
-<form name="jalview_form" method="post" action="jalview.py">
+<form name="jalview_form" method="get" action="jalview.py">
 Pick an alignment file:
     <select name="alignment">
     <option value="mini_reset_cluster98_size_107_cid_2298.fasta">test</option>
