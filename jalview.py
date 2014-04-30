@@ -26,7 +26,7 @@ print """
 <form name="jalview_form" method="post" action="jalview.py">
 Pick an alignment file:
     <select name="alignment">
-    <option value="/var/www/html/msad/genbankexample.fasta">test</option>
+    <option value="mini_reset_cluster98_size_107_cid_2298.fasta">test</option>
     </select>
     <br>
     <input type="submit" name="jalview!" value="submit" />
@@ -42,7 +42,7 @@ if form:
     </script>
 
 
-    <applet code="jalview.bin.JalviewLite" width="800" height="400" archive="jalviewApplet.jar">
+    <applet code="jalview.bin.JalviewLite" width="800" height="400" archive="jalviewApplet.jar, justone.zip">
             <param name="permissions" value="sandbox"/>
             <param name="file" value="%s"/>
             <param name="embedded" value="true"/>
