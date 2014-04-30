@@ -29,7 +29,7 @@ Pick an alignment file:
     <option value="mini_reset_cluster98_size_107_cid_2298.fasta">test</option>
     </select>
     <br>
-    <input type="submit" name="jalview!" value="submit" />
+    <input type="submit" value="submit" />
     </form>
 """
 
