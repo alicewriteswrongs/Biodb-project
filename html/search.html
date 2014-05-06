@@ -1,0 +1,94 @@
+<!-- saved from url=(0058)http://bioed.bu.edu/students_14/mdow/msad_test.html#tables -->
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title> MSAD - Minicircle Sequence Analysis Database </title>
+
+<style>
+body
+{
+background-color:#d0e4fe;
+}
+h1
+{
+color:black;
+text-align:center;
+}
+p
+{
+font-family:"Arial";
+font-size:20px;
+text-align:center;
+}
+ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+li
+{
+display:inline;
+font-size:20px;
+text-align:center;
+}
+p.margin
+{
+margin:100px 100px;
+}
+
+p.padding
+{
+padding-top:25px;
+padding-bottom:25px;
+padding-right:50px;
+padding-left:50px;
+}
+</style>
+<style type="text/css"></style><style type="text/css"></style></head>
+
+<body>
+
+<h1>MSAD - Minicircle Sequence Analysis Database</h1>
+<p>BE768 Biological Database Analysis</p>
+
+<ul>
+<li><a href="home.html">Home</a></li>
+<li><a href="search.html">Search</a></li>
+<li><a href="data_download.html">Data Download</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="#about">About</a></li>
+</ul>
+
+
+<!-- check box: select csb -->
+<form name="search_mini" action="/cgi-bin/students_14/mdow/search_mini.py" method="post">
+<br>
+
+<p style = "background-color:#99CCFF;font-size:20px;text-align:left;font-weight:bold">
+
+<br>
+Search Minicircle in RNA sequence:
+<br><br>
+</p>
+<p style = "background-color:#d0e4fe;;font-size:15px;text-align:left;font-weight:bold">
+Key words ||  Number of CSB 
+</p>
+    <div class="ui-widget" id="search_mini"> <!--jQuery class for our form-->
+        <input name="search_text" id="search_text" type="text"/>
+        <!-- There's an easier way to add this with jQuery (UI), and also many other ways you can ask the user for this input)-->
+        <select name="num_CSB" id="num_csb">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <br/>
+        <button name="search">Search!</button>
+    </div>
+</form>
+
+
+</body></html>
+
+

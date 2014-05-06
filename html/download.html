@@ -1,0 +1,22 @@
+<?php
+    // Sending the file - a pdf in this case
+    header('Content-type: application/force-download');
+
+    // Specify what it will be called
+    header("Content-Disposition: attachment; filename='http://www.i.imgur.com/xKE07.jpg'");
+
+    // And specfy where its coming from 
+    readfile('derp.jpeg');
+?>
+
+<head>
+
+    <title>Your download page</title>
+
+</head>
+
+<body>
+
+    <p>Your download will start immediately, if it doesn't "Refresh" this page.</p>
+
+</body>

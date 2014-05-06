@@ -1,0 +1,245 @@
+<!-- saved from url=(0058)http://bioed.bu.edu/students_14/mdow/msad_test.html#tables -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> MSAD - Minicircle Sequence Analysis Database </title>
+<style>
+a:link {text-decoration:none;color:#FFFFFF}    /* unvisited link */
+a:visited {text-decoration:none;color:#FFFFFF} /* visited link */
+a:hover {text-decoration:underline;}   /* mouse over link */
+a:active {text-decoration:underline;}  /* selected link */
+
+body
+{
+    background-color:#d0e4fe;
+}
+h1
+{
+    color:black;
+    text-align:center;
+}
+h2
+{
+    font-size:20px;
+    text-align:center;
+}
+p
+{
+    position:absolute;
+    left:22.5%;
+    position:relative;
+    top:50px;
+    background-color:#99CCFF;
+    font-family:"Arial";
+    font-size:20px;
+    text-align:left;
+    width: 700px;
+    padding: 20 20px;
+}
+p.margin
+{
+    margin:100px 100px;
+}
+ul
+{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+ul.menu {
+    position:absolute;
+    left:15%;
+    height: 40px;
+    border-left: 1px solid rgba(0,0,0,0.3);
+    border-right: 1px solid rgba(255,255,255,0.3);
+    float:left;
+}
+
+
+ul.menu li {
+    list-style: none;
+    float:left;
+    height: 39px;
+    text-align: center;
+    background: -webkit-gradient(radial, 50% 100%, 10, 50% 50%, 90, from(rgba(31,169,244,1)), to(rgba(0,28,78, 1)) );
+    background: -moz-radial-gradient(center 80px 45deg, circle cover, rgba(31,169,244,1) 0%, rgba(0,28,78, 1) 100%);
+}
+ul li a {
+    display: block;
+    padding: 0 50px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
+    text-align: center;
+    line-height: 39px;
+    background : -webkit-gradient(linear, left top, left bottom, from(rgb(184,184,184)), to(rgb(112,112,112)));
+    background : -moz-linear-gradient(top, rgb(184,184,184), rgb(112,112,112));
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 700ms;
+    -moz-transition-property: background;
+    -moz-transition-duration: 700ms;
+}
+ul li a:hover {
+    background: transparent none;
+}
+
+ul li.active a{
+    background: -webkit-gradient(radial, 50% 100%, 10, 50% 50%, 90, from(rgba(31,169,244,1)), to(rgba(0,28,78, 1)) );
+    background: -moz-radial-gradient(center 80px 45deg, circle cover, rgba(31,169,244,1) 0%, rgba(0,28,78, 1) 100%);
+}
+
+</style>
+
+<link rel="stylesheet" href="/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.css" ></link>
+<script type="text/javascript" src="/jquery-1.11.0.js" ></script>
+<script type="text/javascript" src="/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js" ></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    var cache = {};
+    $(document).ready(function(){
+	if ($("#CSB3").prop("checked")){
+		$("#cluster_section").show();
+	}
+	else{
+		$("#cluster_section").hide();
+	}
+ 	$("#CSB3").click(function(){
+		$("#cluster_section").toggle();
+	});
+
+	$("#msa").hide();
+
+	$("#name_part").autocomplete({
+            minLength: 1,
+            source: function(request, response) {
+                var term = request.term;
+                console.log(term);
+                if ( term in cache ) {
+                    response( cache[ term ] );
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/cgi-bin/msad/search_cluster.py",
+                    data: "name_part=" + term,
+                    dataType: "json",
+                    success: function(data) {
+                        cache[ term ] = data;
+                       // console.log(data);
+                        response(data);
+			
+                    }
+                });
+            },
+		select: function(suggestion) { 
+		console.log(this);
+		mysuggestion = suggestion;
+	//	 $("#msa").show();  
+		} 
+        });
+    });
+
+	
+</script>
+
+
+</head>
+
+<body>
+
+<h1>MSAD - Minicircle Sequence Analysis Database</h1>
+<h2>BE768 Biological Database Analysis</h2>
+
+<ul>
+<div class="container"><ul class="menu" rel="sam1">
+<li><a href="home.html">Home</a></li>
+<li><a href="about.html">About</a><li>
+<li><a href="display.html">Display</a><li>
+<li><a href="data_download.html">Data Download</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="help.html">Help</a></li>
+</ul>
+</div>
+
+<!-- check box: select csb -->
+<form name="search_form" target="_blank" action="/cgi-bin/msad/search_cluster.py" method = "POST">
+<p style = "font-weight:bold">
+Restrict by CSB mapping: 
+</p>
+<div id="csb_restriction">
+<p style="background-color:#d0e4fe;margin: 0px">
+<font size="3">
+To retrieve data without any restriction, leave all csb selection unchecked. <br><br>
+</font>
+<input type="checkbox" name="csb_select1" value = "CSB1">CSB1 <br>
+<input type="checkbox" name="csb_select2" value = "CSB2">CSB2 <br>
+<input type="checkbox" name="csb_select3" value = "CSB3" id="CSB3">CSB3 
+<font size="2">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://bioed.bu.edu/msad/help.html" style="color:#0000FF">Need Help?</a>
+</font>
+</p>
+</div>
+
+
+<!-- pulldown: select cluster -->
+<div id="cluster_section">
+<p style ="font-weight:bold">
+
+Restrict by Cluster:
+</p>
+
+<div class="ui-widget" id="search_cluster_widget"> <!--jQuery class for our form-->
+<p style="background-color:#d0e4fe;">
+Cluster: 
+<input name="name_part" id="name_part" value = "Default [no selection]" type="text" size="40"/>
+<br>
+<font size="2">
+e.g. To get "cluster id:1953, size:858", type 858 (cluster size: 858)
+<br>
+e.g. To get clusters of size:3, type 3
+</font>
+</p>
+</div>
+</div>
+<! -- TO DO: link cluster dropdown to autocomplete ajax script: default no cluster restriction, otherwise order by size of cluster, display clusterid, size -->
+
+<!--pulldown: select download type -->
+<p style="font-weight:bold">
+Download type: 
+</p>
+
+<p style="background-color:#d0e4fe;">
+<input type="radio" name="file_type" value = "csvtable" checked> Minicircle sequences (CSV TABLE) <br>
+<input type="radio" name="file_type" value = "fasta" > Minicircle sequences (FASTA) <br>
+<span id="msa">
+<input type="checkbox" name="MSA file" value = "Multiple Sequence Alignment">  Multiple Sequence Alignment <br>
+</span>
+
+
+<br>
+
+<input type="submit" id="submit1" name="view result" value="view result">
+<input type="submit" id="submit2" name="download" value="download">
+
+</p>
+</form>
+
+<div id="footer">
+<p style="background-color:#d0e4fe;">
+<font size="3">
+<a href="http://www.bu.edu/"><img border="0" src="http://www.bu.edu/urop/files/2010/09/BU_rgb.gif" width="120", height="60"></a>
+Copyright &#169; 2014 Boston University MSAD
+|
+<a href="http://bioed.bu.edu/msad/contact.html" style="color:#000000">Contact</a>
+|
+<a href="http://bioed.bu.edu/msad/help.html" style="color:#000000">Help</a>
+|
+<a href="https://www.bu.edu/" style="color:#000000">Boston University</a>
+</font>
+</p>
+</div>
+
+
+</body></html>
+
